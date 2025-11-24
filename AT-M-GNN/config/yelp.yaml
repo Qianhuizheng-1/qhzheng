@@ -1,0 +1,89 @@
+# Data
+data_name: 'yelp'
+data_dir: './data/yelpchi/'
+train_ratio: 0.4
+test_ratio: 0.67
+save_dir: './pytorch_models/'
+gen_save_dir: './pytorch_models/gen/'
+
+# Model
+model: 'DiG-In-GNN'
+multi_relation: 'GNN'
+
+# Model architecture
+emb_size: 128
+
+# 阈值优化相关配置
+thres: 0.6
+optimize_threshold: True  # 新增：是否启用阈值优化
+optimize_metric: 'f1_binary_1'  # 优化指标：'f1_macro', 'gmean', 'f1_binary_1'
+
+rho: 0.5
+
+seed: 123456789
+
+#RL
+ob_dim: 96
+action_dim: 2
+fc1_dim: 256
+fc2_dim: 256
+sample_rate1: 0.7
+sample_rate2: 0.06
+sample_rate3: 0.008
+rl_tolerance1: 0.1
+rl_tolerance2: 0.09
+rl_tolerance3: 0.08
+# hyper-parameters
+optimizer: 'adam'
+lr: 0.005
+weight_decay: 0.0015
+
+gen_lr: 0.003
+gen_weight_decay: 0.001
+
+rl_lr1: 0.003
+rl_lr2: 0.003
+rl_lr3: 0.003
+rl_weight_decay: 0.001
+
+batch_size: 512
+negsamp_ratio: 1
+num_epochs: 162
+valid_epochs: 1
+alpha: 2
+
+# Device
+cuda: True
+cuda_id: '0'
+device: 'cuda:0'
+
+# model_update
+gnn_update_start: 72 # 81
+gen_update_end: 71 # 80
+rl_update_start: 72 # 81
+rl_update_end: 190
+label_update_end: 90
+laod_gen: False
+save_gen: False
+gen_num: 80
+
+# pick_step
+b_pick: 0.9
+f_pick: 0.35
+
+pick: 6
+
+# Adversarial Training
+adversarial_training: True  # 是否启用对抗训练
+epsilon: [0.45,0,5,0.55,0.6,0.65] # 对抗扰动的最大强度
+adv_warmup_epochs: 10 # 对抗训练的预热期
+alternate_frequency: 7 # 交替频率，每5个epoch切换一次训练模式
+adv_loss_weight: [0.35,0.4,0.45,0.5,0.55] # 新增：对抗损失的权重
+
+dropout: 0.45
+
+# 在现有配置文件基础上添加
+multi_metrics:
+  f1_macro: 0.4
+  gmean: 0.3
+  f1_binary_1: 0.3
